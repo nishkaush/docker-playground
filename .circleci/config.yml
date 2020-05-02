@@ -3,6 +3,6 @@ jobs:
   build:
     machine: true
     steps:
-      - run: docker build -f Dcokerfile.dev -t app-testing .
+      - run: docker build -f Dockerfile.dev -t app-testing .
       - run: docker run -e="CI=true" app-testing npm run test
       - run: echo hello-world

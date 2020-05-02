@@ -1,8 +1,10 @@
 version: 2.1
 jobs:
   build:
-    working_directory: ~/docker-playground
-    machine: true
+    docker:
+      - image: docker:17.05.0-ce-git
     steps:
+      - checkout
+      - setup_remote_docker
       - run: ls
       - run: echo hello-world

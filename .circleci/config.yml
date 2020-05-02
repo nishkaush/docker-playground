@@ -1,0 +1,8 @@
+version: 2.1
+jobs:
+  build:
+    steps:
+      - setup_remote_docker
+      - run: docker build -f Dcokerfile.dev -t app-testing .
+      - run: docker run -e="CI=true" app-testing npm run test
+      - run: echo hello-world

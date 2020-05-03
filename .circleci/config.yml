@@ -19,6 +19,12 @@ jobs:
       - setup_remote_docker
       - run: docker build -t react-app-build:1.0.0 .
       - run: docker run react-app-build:1.0.0
+      - aws-s3/copy:
+          arguments: "--recursive --acl public-read"
+          aws-access-key-id: $AWS_ACCESS_KEY_ID
+          aws-secret-access-key: $AWS_SECRET_ACCESS_KEY
+          from: build
+          to: s3://docker-react-nishant
 
 workflows:
   my-custom-workflow:

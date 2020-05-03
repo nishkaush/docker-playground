@@ -2,15 +2,6 @@ version: 2.1
 orbs:
   aws-s3: circleci/aws-s3@1.0.15
 jobs:
-  build_and_test:
-    docker:
-      - image: docker:17.05.0-ce-git
-    steps:
-      - checkout
-      - setup_remote_docker
-      - run: docker build -f Dockerfile.dev -t app-testing .
-      - run: docker run -e="CI=true" app-testing npm run test
-
   build_and_deploy:
     docker:
       - image: circleci/node:10.16.3
@@ -19,17 +10,9 @@ jobs:
       - setup_remote_docker
       - run: docker build -t react-app-build:1.0.0 .
       - run: docker run react-app-build:1.0.0
-      - aws-s3/copy:
-          arguments: "--recursive --acl public-read"
-          aws-access-key-id: $AWS_ACCESS_KEY_ID
-          aws-secret-access-key: $AWS_SECRET_ACCESS_KEY
-          from: build
-          to: s3://docker-react-nishant
+      - run: echo ${AWS_ACCESS_KEY_ID}
 
 workflows:
   my-custom-workflow:
     jobs:
-      - build_and_test
-      - build_and_deploy:
-          requires:
-            - build_and_test
+      - build_and_deploy

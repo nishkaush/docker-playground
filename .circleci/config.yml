@@ -30,6 +30,3 @@ workflows:
   my-custom-workflow:
     jobs:
       - build_and_test
-      - build_and_deploy:
-          requires:
-            - build_and_test

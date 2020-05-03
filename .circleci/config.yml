@@ -7,11 +7,8 @@ jobs:
       - image: circleci/node:10.16.3
     steps:
       - checkout
-      - setup_remote_docker
       - run: docker build -t react-app-build:1.0.0 .
       - run: docker run react-app-build:1.0.0
-      - run: cd /app && ls
-      - run: docker cp /app/build .
       - run: ls
 
 workflows:

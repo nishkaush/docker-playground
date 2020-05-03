@@ -5,7 +5,8 @@ import "./App.css";
 function App() {
   return (
     <div className="App">
-      <h1>Lets see if this gets to S3 via circleCI</h1>
+      <h1>Welcome to Nishant's Sexy site!</h1>
+      <h2>Made with React, Docker & CircleCI</h2>
     </div>
   );
 }

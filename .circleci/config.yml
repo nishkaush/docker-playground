@@ -13,20 +13,18 @@ jobs:
 
   build_and_deploy:
     docker:
-        - image: circleci/node:10.16.3
+      - image: circleci/node:10.16.3
     steps:
       - checkout
       - setup_remote_docker
       - run: docker build -t react-app-build:1.0.0 .
       - run: docker run react-app-build:1.0.0
       - aws-s3/copy:
-        - aws-access-key-id: $AWS_ACCESS_KEY_ID
-        - aws-secret-access-key: $AWS_SECRET_ACCESS_KEY
-        - from: build
-        - to: s3://docker-react-nishant
-        - arguments: |
-          --recursive
-          --acl public-read
+          - aws-access-key-id: $AWS_ACCESS_KEY_ID
+          - aws-secret-access-key: $AWS_SECRET_ACCESS_KEY
+          - from: build
+          - to: s3://docker-react-nishant
+          - arguments: "--recursive --acl public-read"
 
 workflows:
   my-custom-workflow:

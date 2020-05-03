@@ -11,7 +11,19 @@ jobs:
       - run: docker build -f Dockerfile.dev -t app-testing .
       - run: docker run -e="CI=true" app-testing npm run test
 
+  build_and_deploy:
+    docker:
+      - image: circleci/node:10.16.3
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run: docker build -t react-app-build:1.0.0 .
+      - run: docker run react-app-build:1.0.0
+
 workflows:
   my-custom-workflow:
     jobs:
       - build_and_test
+      - build_and_deploy:
+          requires:
+            - build_and_test
